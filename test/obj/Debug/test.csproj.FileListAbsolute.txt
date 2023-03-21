@@ -1,0 +1,10 @@
+C:\Leonel\Programacion\C#\test\test\obj\Debug\test.csproj.AssemblyReference.cache
+C:\Leonel\Programacion\C#\test\test\obj\Debug\test.Form1.resources
+C:\Leonel\Programacion\C#\test\test\obj\Debug\test.Properties.Resources.resources
+C:\Leonel\Programacion\C#\test\test\obj\Debug\test.csproj.GenerateResource.cache
+C:\Leonel\Programacion\C#\test\test\obj\Debug\test.csproj.CoreCompileInputs.cache
+C:\Leonel\Programacion\C#\test\test\bin\Debug\test.exe.config
+C:\Leonel\Programacion\C#\test\test\bin\Debug\test.exe
+C:\Leonel\Programacion\C#\test\test\bin\Debug\test.pdb
+C:\Leonel\Programacion\C#\test\test\obj\Debug\test.exe
+C:\Leonel\Programacion\C#\test\test\obj\Debug\test.pdb
