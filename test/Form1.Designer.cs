@@ -35,6 +35,8 @@ namespace test
             this.textBox1 = new System.Windows.Forms.TextBox();
             this.button2 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
             // txt_id
@@ -61,7 +63,7 @@ namespace test
             this.nombre.Name = "nombre";
             this.nombre.Size = new System.Drawing.Size(228, 26);
             this.nombre.TabIndex = 2;
-            this.nombre.Tag = "test,colA";
+            this.nombre.Tag = "test,nombre";
             // 
             // textBox1
             // 
@@ -69,7 +71,7 @@ namespace test
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(228, 26);
             this.textBox1.TabIndex = 4;
-            this.textBox1.Tag = "test2,colB";
+            this.textBox1.Tag = "test2,apellido";
             // 
             // button2
             // 
@@ -91,11 +93,26 @@ namespace test
             this.button3.UseVisualStyleBackColor = true;
             this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
+            // dataGridView1
+            // 
+            this.dataGridView1.AllowUserToAddRows = false;
+            this.dataGridView1.AllowUserToDeleteRows = false;
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Location = new System.Drawing.Point(13, 157);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.ReadOnly = true;
+            this.dataGridView1.RowHeadersWidth = 62;
+            this.dataGridView1.RowTemplate.Height = 28;
+            this.dataGridView1.Size = new System.Drawing.Size(759, 223);
+            this.dataGridView1.TabIndex = 7;
+            this.dataGridView1.Tag = "vw_test";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.button3);
             this.Controls.Add(this.button2);
             this.Controls.Add(this.textBox1);
@@ -104,6 +121,7 @@ namespace test
             this.Controls.Add(this.txt_id);
             this.Name = "Form1";
             this.Text = "Form1";
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -117,6 +135,7 @@ namespace test
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button3;
+        private System.Windows.Forms.DataGridView dataGridView1;
     }
 }
 

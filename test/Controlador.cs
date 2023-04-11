@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Odbc;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,6 +9,7 @@ namespace test
 {
     class Controlador
     {
+        Conexion conexion = new Conexion();
         public void Guardar(Dictionary<string, List<string>> valoresPorTagTabla, Dictionary<string, List<string>> valoresPorTagColumnas)
         {
             HashSet<string> tables = new HashSet<string>(valoresPorTagTabla.Keys.Union(valoresPorTagColumnas.Keys));
@@ -18,9 +20,18 @@ namespace test
                 List<string> valores = valoresPorTagColumnas[tabla];
 
                 // Generate INSERT statement
-                string insert = $"INSERT INTO {tabla} ({string.Join(",", columnas)}) VALUES ({string.Join(",", valores)})";
+                string insert = $"INSERT INTO {tabla} ({string.Join(",", columnas)}) VALUES ({string.Join(",", valores)});";
 
-                Console.WriteLine(insert);
+                try
+                {
+                    OdbcCommand cmd = new OdbcCommand(insert, conexion.conexion());
+                    Console.WriteLine(insert);
+                    cmd.ExecuteNonQuery();
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message.ToString());
+                }
             }
 
         }
@@ -31,11 +42,20 @@ namespace test
             {
                 List<string> columnas = valoresPorTagTabla[tabla];
                 List<string> valores = valoresPorTagColumnas[tabla];
-                string condicion = string.Join(" AND ", condiciones[tabla].Select((v, i) => $"{v}='{valoresPorTagColumnas[tabla][i]}'"));
-                // Generate UPDATE statement
+                string condicion = string.Join(" AND ", condiciones[tabla].Select((v, i) => $"{v}={valoresPorTagColumnas[tabla][i]}"));
+                
                 List<string> updateValues = columnas.Zip(valores, (col, val) => $"{col}={val}").ToList();
-                string update = $"UPDATE {tabla} SET {string.Join(",", updateValues)} WHERE {condicion}";
-                Console.WriteLine(update);
+                string update = $"UPDATE {tabla} SET {string.Join(",", updateValues)} WHERE {condicion};";
+                try
+                {
+                    OdbcCommand consulta = new OdbcCommand(update, conexion.conexion());
+                    Console.WriteLine(update);
+                    consulta.ExecuteNonQuery();
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine("Error en CapaModeloReporteria --> Sentencias" + e);
+                }
             }
 
         }
@@ -46,9 +66,18 @@ namespace test
             {
                 List<string> columnas = valoresPorTagTabla[tabla];
                 List<string> valores = valoresPorTagColumnas[tabla];
-                string condicion = string.Join(" AND ", condiciones[tabla].Select((v, i) => $"{v}='{valoresPorTagColumnas[tabla][i]}'"));
-                string delete = $"DELETE FROM {tabla} WHERE {condicion}";
-                Console.WriteLine(delete);
+                string condicion = string.Join(" AND ", condiciones[tabla].Select((v, i) => $"{v}={valoresPorTagColumnas[tabla][i]}"));
+                string delete = $"DELETE FROM {tabla} WHERE {condicion};";
+                try
+                {
+                    OdbcCommand cmd = new OdbcCommand(delete, conexion.conexion());
+                    Console.WriteLine(delete);
+                    cmd.ExecuteNonQuery();
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex.Message.ToString() + " \nNo se pudo guardar el registro en la tabla " );
+                }
             }
 
         }

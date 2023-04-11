@@ -19,8 +19,17 @@ namespace test
         public Form1()
         {
             InitializeComponent();
+            cargar();
         }
 
+        void cargar()
+        {
+            string sql = "SELECT * FROM "+dataGridView1.Tag +";";
+            OdbcDataAdapter dataTable = new OdbcDataAdapter(sql, conexion.conexion());
+            DataTable table = new DataTable();
+            dataTable.Fill(table);
+            dataGridView1.DataSource = table;
+        }
 
         private void button1_Click(object sender, EventArgs e)
         {
@@ -42,12 +51,12 @@ namespace test
                         valoresPorTagColumnas[tabla] = new List<string>();
                     }
                     valoresPorTagTabla[tabla].Add(columna);
-                    valoresPorTagColumnas[tabla].Add(valor);
+                    valoresPorTagColumnas[tabla].Add("\'"+ valor+"\'");
                 }
             }
             controlador.Guardar(valoresPorTagTabla, valoresPorTagColumnas);
 
-
+            cargar();
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -58,7 +67,7 @@ namespace test
 
             TextBox id2 = new TextBox();
             id2.Text = txt_id.Text;
-            id2.Tag = "test2,id2,primary";
+            id2.Tag = "test2,dpi,primary";
 
             TextBox[] arreglo = { txt_id, nombre, id2, textBox1 };
 
@@ -76,7 +85,7 @@ namespace test
                     valoresPorTagCondicion[tabla] = new List<string>();
                 }
                 valoresPorTagTabla[tabla].Add(columna);
-                valoresPorTagColumnas[tabla].Add(valor);
+                valoresPorTagColumnas[tabla].Add("\'" + valor + "\'");
                 if (textBox.Tag.ToString().Contains("primary"))
                 {
                     valoresPorTagCondicion[tabla].Add(columna);
@@ -84,6 +93,7 @@ namespace test
             }
             controlador.Actualizar(valoresPorTagTabla, valoresPorTagColumnas, valoresPorTagCondicion);
 
+            cargar();
         }
 
         private void button3_Click(object sender, EventArgs e)
@@ -96,7 +106,7 @@ namespace test
 
             TextBox id2 = new TextBox();
             id2.Text = txt_id.Text;
-            id2.Tag = "test2,abcd,primary";
+            id2.Tag = "test2,dpi,primary";
 
             TextBox[] arreglo = { txt_id, nombre, id2, textBox1 };
 
@@ -113,13 +123,14 @@ namespace test
                     valoresPorTagCondicion[tabla] = new List<string>();
                 }
                 valoresPorTagTabla[tabla].Add(columna);
-                valoresPorTagColumnas[tabla].Add(valor);
+                valoresPorTagColumnas[tabla].Add("\'" + valor + "\'");
                 if (textBox.Tag.ToString().Contains("primary"))
                 {
                     valoresPorTagCondicion[tabla].Add(columna);
                 }
             }
             controlador.Eliminar(valoresPorTagTabla, valoresPorTagColumnas, valoresPorTagCondicion);
+            cargar();
         }
     }
 }
